@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Portfolio</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent: #8b5cf6; /* Neon Purple */
+            --code-bg: #2d2d2d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 40px 0;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid #333;
+        }
+
+        /* Video/Image Placeholder Styling */
+        .video-container {
+            /* Default: Widescreen (16:9) */
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            overflow: hidden;
+        }
+        
+        /* NEW: Class for Vertical Video (9:16) */
+        .vertical-video-container {
+            aspect-ratio: 9/16; 
+            max-width: 450px; /* Constrain width on desktop for better visual appeal */
+            margin: 0 auto; /* Center the vertical container */
+        }
+        
+        video, img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .skills-list li {
+            background: #222;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Itay Ozel</h1>
+            <p class="tagline">AI Cinematographer & Prompt Engineer</p>
+            <a href="mailto:etypity@gmail.com" class="cta-button">Contact Me</a>
+        </header>
+
+        <div class="projects">
+            
+            <article class="project-card">
+                <div class="video-container">
+                    <video controls preload="metadata">
+                        <source src="Graphite IX Pro.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="card-content">
+                    <h2 class="project-title">Graphite IX Pro</h2>
+                    <p class="project-desc">A Fake Ad for an Expensive Pen</p>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="video-container vertical-video-container">
+                    <video controls preload="metadata" autoplay loop>
+                        <source src="hotel_00003+audio.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="card-content">
+                    <h2 class="project-title">Resort Hotel Ad</h2>
+                    <p class="project-desc">A demonstration of photorealistic scenery generation and seamless object inclusion for a luxury travel brand.</p>
+                </div>
+            </article>
+
+        </div>
+
+        <footer>
+            <ul class="skills-list">
+                <li>ComfyUI</li>
+                <li>Midjourney</li>
+                <li>Wan Video</li>
+                <li>Qwen image</li>
+                <li>Prompt Engineering</li>
+            </ul>
+            <p>&copy; Itay Ozel. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

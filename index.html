@@ -146,21 +146,38 @@
             font-size: 0.8rem;
         }
         
-        /* * === NEW: Scrolling Gallery CSS ===
-         */
+        /* * === MODIFIED: Scrolling Gallery CSS === */
         
-        /* Container for the image row */
+        /* Container for the image row (The viewport) */
         .scrolling-gallery {
-            display: flex; /* Arrange items horizontally */
-            overflow-x: scroll; /* Enable horizontal scrolling */
-            gap: 15px; /* Space between images */
-            padding: 20px 0; /* Vertical padding */
+            /* Now acting as the viewport */
+            overflow-x: hidden; /* Hides the scrollbar and clips the content */
+            padding: 20px 0;
             margin: 20px 0 40px 0;
             border-top: 1px solid #333;
         }
 
+        /* The moving track */
+        .scroll-track {
+            display: flex; /* Arrange items horizontally */
+            gap: 15px; /* Space between images */
+            
+            /* The animation property: */
+            /* Name | Duration | Timing | Iteration | Play State */
+            animation: scroll-left 30s linear infinite running;
+            
+            /* A CSS trick to make the scroll loop seamlessly. 
+               We will duplicate the content in the HTML. */
+            width: fit-content; 
+        }
+
+        /* Stop animation on hover */
+        .scrolling-gallery:hover .scroll-track {
+            animation-play-state: paused;
+        }
+
         /* Styling for the vertical images (9:16 ratio) */
-        .scrolling-gallery img {
+        .scroll-track img {
             height: 400px; /* Fixed height for visual consistency */
             aspect-ratio: 9 / 16; /* Enforce the vertical aspect ratio */
             width: auto;
@@ -169,26 +186,55 @@
             border-radius: 8px;
             opacity: 0.85;
             transition: opacity 0.3s, transform 0.3s;
+            cursor: pointer; /* Add a pointer cursor to indicate clickability */
         }
         
-        .scrolling-gallery img:hover {
+        .scroll-track img:hover {
             opacity: 1;
             transform: scale(1.02);
         }
 
-        /* Optional: Hide scrollbar for a cleaner look */
-        .scrolling-gallery::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-        .scrolling-gallery {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+        /* Define the scrolling animation */
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                /* Moves the content half of its duplicated width to the left */
+                transform: translateX(-50%); 
+            }
         }
         
         .gallery-header {
             font-size: 1.8rem;
             margin-bottom: 0;
             padding-top: 20px;
+        }
+
+        /* Fullscreen Modal Styling */
+        .fullscreen-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000; /* Ensure it's on top of everything */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9); /* Black background with opacity */
+            
+            /* Center the content */
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fullscreen-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            width: auto;
+            height: auto;
+            object-fit: contain; /* Ensures the image fits within the modal */
         }
     </style>
 </head>
@@ -231,15 +277,26 @@
             
             <h2 class="gallery-header">Vertical Image Prompts & Renders</h2>
             <div class="scrolling-gallery">
-                <img src="images/image-01.jpg" alt="Close-Up of a glass of Beer">
-                <img src="images/image-02.jpg" alt="Sculpting clay">
-                <img src="images/image-03.jpg" alt="Studio Photo">
-                <img src="images/image-04.jpg" alt="Food photo">
-                <img src="images/image-05.jpg" alt="Fassion Photo">
-                <img src="images/image-06.jpg" alt="Yoga Photo">
-                <img src="images/image-07.jpg" alt="Vacation photo">
-                <img src="images/image-08.jpg" alt="Cyber-Punk photo">
+                <div class="scroll-track">
+                    <img src="images/image-01.jpg" alt="Close-Up of a glass of Beer" onclick="openFullscreen(this)">
+                    <img src="images/image-02.jpg" alt="Sculpting clay" onclick="openFullscreen(this)">
+                    <img src="images/image-03.jpg" alt="Studio Photo" onclick="openFullscreen(this)">
+                    <img src="images/image-04.jpg" alt="Food photo" onclick="openFullscreen(this)">
+                    <img src="images/image-05.jpg" alt="Fassion Photo" onclick="openFullscreen(this)">
+                    <img src="images/image-06.jpg" alt="Yoga Photo" onclick="openFullscreen(this)">
+                    <img src="images/image-07.jpg" alt="Vacation photo" onclick="openFullscreen(this)">
+                    <img src="images/image-08.jpg" alt="Cyber-Punk photo" onclick="openFullscreen(this)">
+                    
+                    <img src="images/image-01.jpg" alt="Close-Up of a glass of Beer" onclick="openFullscreen(this)">
+                    <img src="images/image-02.jpg" alt="Sculpting clay" onclick="openFullscreen(this)">
+                    <img src="images/image-03.jpg" alt="Studio Photo" onclick="openFullscreen(this)">
+                    <img src="images/image-04.jpg" alt="Food photo" onclick="openFullscreen(this)">
+                    <img src="images/image-05.jpg" alt="Fassion Photo" onclick="openFullscreen(this)">
+                    <img src="images/image-06.jpg" alt="Yoga Photo" onclick="openFullscreen(this)">
+                    <img src="images/image-07.jpg" alt="Vacation photo" onclick="openFullscreen(this)">
+                    <img src="images/image-08.jpg" alt="Cyber-Punk photo" onclick="openFullscreen(this)">
                 </div>
+            </div>
             </div>
 
         <footer>
@@ -250,12 +307,51 @@
                 <li>Qwen image</li>
                 <li>Prompt Engineering</li>
                 <li>Gen AI</li>
-                <li>ComfyUI</li>
+                
             </ul>
             <p>&copy; Itay Ozel. All Rights Reserved.</p>
         </footer>
     </div>
 
+    <div id="fullscreenModal" class="fullscreen-modal" onclick="closeFullscreen()">
+        <img id="modalImage" src="" alt="Full screen image">
+    </div>
+
+    <script>
+        // Get the modal elements
+        var modal = document.getElementById("fullscreenModal");
+        var modalImg = document.getElementById("modalImage");
+
+        /**
+         * Opens the modal and displays the clicked image in full screen.
+         * @param {HTMLImageElement} imgElement - The image element that was clicked.
+         */
+        function openFullscreen(imgElement) {
+            // Set the modal image source and alt text
+            modalImg.src = imgElement.src;
+            modalImg.alt = imgElement.alt;
+            
+            // Show the modal
+            modal.style.display = "flex"; 
+            
+            // Prevent the click on the image from immediately closing the modal
+            event.stopPropagation();
+        }
+
+        /**
+         * Closes the modal. This function is called when clicking anywhere on the modal background.
+         */
+        function closeFullscreen() {
+            modal.style.display = "none";
+        }
+        
+        // Optional: Close the modal when the Escape key is pressed
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeFullscreen();
+            }
+        });
+    </script>
+
 </body>
 </html>
-

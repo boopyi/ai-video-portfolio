@@ -211,9 +211,8 @@
             padding-top: 20px;
         }
 
-        /* Fullscreen Modal Styling */
+        /* Fullscreen Modal Styling - CORRECTED */
         .fullscreen-modal {
-            display: none; /* Hidden by default */
             position: fixed;
             z-index: 1000; /* Ensure it's on top of everything */
             left: 0;
@@ -224,9 +223,16 @@
             background-color: rgba(0,0,0,0.9); /* Black background with opacity */
             
             /* Center the content */
-            display: flex; 
             justify-content: center;
             align-items: center;
+
+            /* * CORRECTED: HIDDEN by default */
+            display: none; 
+        }
+
+        /* NEW: Class to make the modal visible */
+        .fullscreen-modal.visible {
+            display: flex;
         }
 
         .fullscreen-modal img {
@@ -307,7 +313,7 @@
                 <li>Qwen image</li>
                 <li>Prompt Engineering</li>
                 <li>Gen AI</li>
-                
+                <li>ComfyUI</li>
             </ul>
             <p>&copy; Itay Ozel. All Rights Reserved.</p>
         </footer>
@@ -331,8 +337,8 @@
             modalImg.src = imgElement.src;
             modalImg.alt = imgElement.alt;
             
-            // Show the modal
-            modal.style.display = "flex"; 
+            // Show the modal by adding the 'visible' class
+            modal.classList.add("visible");
             
             // Prevent the click on the image from immediately closing the modal
             event.stopPropagation();
@@ -342,12 +348,14 @@
          * Closes the modal. This function is called when clicking anywhere on the modal background.
          */
         function closeFullscreen() {
-            modal.style.display = "none";
+            // Hide the modal by removing the 'visible' class
+            modal.classList.remove("visible");
         }
         
         // Optional: Close the modal when the Escape key is pressed
         document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
+            // Check if the modal is currently visible before closing
+            if (event.key === "Escape" && modal.classList.contains("visible")) {
                 closeFullscreen();
             }
         });

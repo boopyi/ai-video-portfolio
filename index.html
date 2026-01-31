@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Portfolio</title>
+    <title>Itay Ozel | AI Cinematographer Portfolio</title>
     <style>
         /* --- CSS STYLES --- */
         :root {
@@ -24,14 +24,12 @@
             line-height: 1.6;
         }
 
-        /* Container */
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Header */
         header {
             text-align: center;
             padding: 60px 0;
@@ -65,7 +63,6 @@
             opacity: 0.9;
         }
 
-        /* Projects Section */
         .projects {
             padding: 40px 0;
         }
@@ -78,9 +75,7 @@
             border: 1px solid #333;
         }
 
-        /* Video/Image Placeholder Styling */
         .video-container {
-            /* Default: Widescreen (16:9) */
             width: 100%;
             aspect-ratio: 16/9;
             background-color: #000;
@@ -91,11 +86,10 @@
             overflow: hidden;
         }
         
-        /* NEW: Class for Vertical Video (9:16) */
         .vertical-video-container {
             aspect-ratio: 9/16; 
-            max-width: 450px; /* Constrain width on desktop for better visual appeal */
-            margin: 0 auto; /* Center the vertical container */
+            max-width: 450px; 
+            margin: 0 auto;
         }
         
         video, img {
@@ -120,7 +114,6 @@
             font-size: 0.95rem;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 40px 0;
@@ -144,49 +137,38 @@
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
+            border: 1px solid #333;
         }
         
-        /* * === MODIFIED: Scrolling Gallery CSS === */
-        
-        /* Container for the image row (The viewport) */
+        /* Scrolling Gallery */
         .scrolling-gallery {
-            /* Now acting as the viewport */
-            overflow-x: hidden; /* Hides the scrollbar and clips the content */
+            overflow-x: hidden;
             padding: 20px 0;
             margin: 20px 0 40px 0;
             border-top: 1px solid #333;
         }
 
-        /* The moving track */
         .scroll-track {
-            display: flex; /* Arrange items horizontally */
-            gap: 15px; /* Space between images */
-            
-            /* The animation property: */
-            /* Name | Duration | Timing | Iteration | Play State */
+            display: flex;
+            gap: 15px;
             animation: scroll-left 30s linear infinite running;
-            
-            /* A CSS trick to make the scroll loop seamlessly. 
-               We will duplicate the content in the HTML. */
             width: fit-content; 
         }
 
-        /* Stop animation on hover */
         .scrolling-gallery:hover .scroll-track {
             animation-play-state: paused;
         }
 
-        /* Styling for the vertical images (9:16 ratio) */
         .scroll-track img {
-            height: 400px; /* Fixed height for visual consistency */
-            aspect-ratio: 9 / 16; /* Enforce the vertical aspect ratio */
+            height: 400px;
+            aspect-ratio: 9 / 16;
             width: auto;
-            flex-shrink: 0; /* Prevent images from shrinking, enforcing the scroll */
-            object-fit: cover; /* Ensures the image fills the space */
+            flex-shrink: 0;
+            object-fit: cover;
             border-radius: 8px;
             opacity: 0.85;
             transition: opacity 0.3s, transform 0.3s;
-            cursor: pointer; /* Add a pointer cursor to indicate clickability */
+            cursor: pointer;
         }
         
         .scroll-track img:hover {
@@ -194,15 +176,9 @@
             transform: scale(1.02);
         }
 
-        /* Define the scrolling animation */
         @keyframes scroll-left {
-            from {
-                transform: translateX(0);
-            }
-            to {
-                /* Moves the content half of its duplicated width to the left */
-                transform: translateX(-50%); 
-            }
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
         
         .gallery-header {
@@ -211,26 +187,21 @@
             padding-top: 20px;
         }
 
-        /* Fullscreen Modal Styling - CORRECTED */
+        /* Fullscreen Modal */
         .fullscreen-modal {
             position: fixed;
-            z-index: 1000; /* Ensure it's on top of everything */
+            z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.9); /* Black background with opacity */
-            
-            /* Center the content */
+            background-color: rgba(0,0,0,0.9);
             justify-content: center;
             align-items: center;
-
-            /* * CORRECTED: HIDDEN by default */
             display: none; 
         }
 
-        /* NEW: Class to make the modal visible */
         .fullscreen-modal.visible {
             display: flex;
         }
@@ -240,7 +211,7 @@
             max-height: 90%;
             width: auto;
             height: auto;
-            object-fit: contain; /* Ensures the image fits within the modal */
+            object-fit: contain;
         }
     </style>
 </head>
@@ -270,7 +241,7 @@
 
             <article class="project-card">
                 <div class="video-container vertical-video-container">
-                    <video controls preload="metadata" autoplay loop>
+                    <video controls preload="metadata" autoplay loop muted>
                         <source src="hotel_00003+audio.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -284,28 +255,29 @@
             <h2 class="gallery-header">Example Images & Renders</h2>
             <div class="scrolling-gallery">
                 <div class="scroll-track">
-                    <img src="images/image-01.jpg" alt="Close-Up of a glass of Beer" onclick="openFullscreen(this)">
-                    <img src="images/image-02.jpg" alt="Sculpting clay" onclick="openFullscreen(this)">
-                    <img src="images/image-03.jpg" alt="Studio Photo" onclick="openFullscreen(this)">
-                    <img src="images/image-04.jpg" alt="Food photo" onclick="openFullscreen(this)">
-                    <img src="images/image-05.jpg" alt="Fassion Photo" onclick="openFullscreen(this)">
-                    <img src="images/image-06.jpg" alt="Yoga Photo" onclick="openFullscreen(this)">
-                    <img src="images/image-07.jpg" alt="Vacation photo" onclick="openFullscreen(this)">
-                    <img src="images/image-08.jpg" alt="Cyber-Punk photo" onclick="openFullscreen(this)">
-                    <img src="images/image-09.jpg" alt="Phone product photo" onclick="openFullscreen(this)">
-                    
-                    <img src="images/image-01.jpg" alt="Close-Up of a glass of Beer" onclick="openFullscreen(this)">
-                    <img src="images/image-02.jpg" alt="Sculpting clay" onclick="openFullscreen(this)">
-                    <img src="images/image-03.jpg" alt="Studio Photo" onclick="openFullscreen(this)">
-                    <img src="images/image-04.jpg" alt="Food photo" onclick="openFullscreen(this)">
-                    <img src="images/image-05.jpg" alt="Fassion Photo" onclick="openFullscreen(this)">
-                    <img src="images/image-06.jpg" alt="Yoga Photo" onclick="openFullscreen(this)">
-                    <img src="images/image-07.jpg" alt="Vacation photo" onclick="openFullscreen(this)">
-                    <img src="images/image-08.jpg" alt="Cyber-Punk photo" onclick="openFullscreen(this)">
-                    <img src="images/image-09.jpg" alt="Phone product photo" onclick="openFullscreen(this)">
+                    <img src="images/image-01.jpg" alt="Beer" onclick="openFullscreen(this)">
+                    <img src="images/image-02.jpg" alt="Clay" onclick="openFullscreen(this)">
+                    <img src="images/image-03.jpg" alt="Studio" onclick="openFullscreen(this)">
+                    <img src="images/image-04.jpg" alt="Food" onclick="openFullscreen(this)">
+                    <img src="images/image-05.jpg" alt="Fashion" onclick="openFullscreen(this)">
+                    <img src="images/image-06.jpg" alt="Yoga" onclick="openFullscreen(this)">
+                    <img src="images/image-07.jpg" alt="Vacation" onclick="openFullscreen(this)">
+                    <img src="images/image-08.jpg" alt="Cyberpunk" onclick="openFullscreen(this)">
+                    <img src="images/image-09.jpg" alt="Product" onclick="openFullscreen(this)">
+                    <img src="images/image-01.jpg" alt="Beer" onclick="openFullscreen(this)">
+                    <img src="images/image-02.jpg" alt="Clay" onclick="openFullscreen(this)">
+                    <img src="images/image-03.jpg" alt="Studio" onclick="openFullscreen(this)">
+                    <img src="images/image-04.jpg" alt="Food" onclick="openFullscreen(this)">
+                    <img src="images/image-05.jpg" alt="Fashion" onclick="openFullscreen(this)">
+                    <img src="images/image-06.jpg" alt="Yoga" onclick="openFullscreen(this)">
+                    <img src="images/image-07.jpg" alt="Vacation" onclick="openFullscreen(this)">
+                    <img src="images/image-08.jpg" alt="Cyberpunk" onclick="openFullscreen(this)">
+                    <img src="images/image-09.jpg" alt="Product" onclick="openFullscreen(this)">
+                    <img src="images/image-10.jpg" alt="jungle" onclick="openFullscreen(this)">
+                    <img src="images/image-11.jpg" alt="pool" onclick="openFullscreen(this)">
                 </div>
             </div>
-            </div>
+        </div>
 
         <footer>
             <ul class="skills-list">
@@ -315,8 +287,9 @@
                 <li>Qwen image</li>
                 <li>Prompt Engineering</li>
                 <li>Gen AI</li>
+                <li>Nano Banana</li>
             </ul>
-            <p>&copy; Itay Ozel. All Rights Reserved.</p>
+            <p>&copy; 2026 Itay Ozel. All Rights Reserved.</p>
         </footer>
     </div>
 
@@ -325,37 +298,21 @@
     </div>
 
     <script>
-        // Get the modal elements
         var modal = document.getElementById("fullscreenModal");
         var modalImg = document.getElementById("modalImage");
 
-        /**
-         * Opens the modal and displays the clicked image in full screen.
-         * @param {HTMLImageElement} imgElement - The image element that was clicked.
-         */
         function openFullscreen(imgElement) {
-            // Set the modal image source and alt text
             modalImg.src = imgElement.src;
             modalImg.alt = imgElement.alt;
-            
-            // Show the modal by adding the 'visible' class
             modal.classList.add("visible");
-            
-            // Prevent the click on the image from immediately closing the modal
             event.stopPropagation();
         }
 
-        /**
-         * Closes the modal. This function is called when clicking anywhere on the modal background.
-         */
         function closeFullscreen() {
-            // Hide the modal by removing the 'visible' class
             modal.classList.remove("visible");
         }
         
-        // Optional: Close the modal when the Escape key is pressed
         document.addEventListener('keydown', function(event) {
-            // Check if the modal is currently visible before closing
             if (event.key === "Escape" && modal.classList.contains("visible")) {
                 closeFullscreen();
             }
@@ -364,4 +321,3 @@
 
 </body>
 </html>
-
